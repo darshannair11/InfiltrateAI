@@ -1,6 +1,6 @@
 .results-container {
   margin-left: 260px;
-  padding: "20px";
+  padding: 20px;
   flex: 1;
   overflow-y: auto;
   height: 100%;

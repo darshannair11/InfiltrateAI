@@ -1,9 +1,11 @@
-import React from "react";
+import * as React from "react";
 import Divider from "@mui/material/Divider";
 import "@coreui/coreui/dist/css/coreui.min.css";
 import HomeIcon from "@mui/icons-material/Home";
 import WifiFindIcon from "@mui/icons-material/WifiFind";
 import SafetyCheckIcon from "@mui/icons-material/SafetyCheck";
+import Skeleton from "@mui/material/Skeleton";
+import axios from "axios";
 import {
   CSidebar,
   CSidebarHeader,
@@ -16,7 +18,23 @@ import {
 } from "@coreui/react";
 import "./styles.css";
 
-export function SideBar() {
+export function SideBar({ changeDisplay }) {
+  const [scanData, setScanData] = React.useState(null);
+  const [error, setError] = React.useState(null);
+
+  React.useEffect(() => {
+    const fetchScanStatus = async () => {
+      try {
+        const response = await axios.get("http://127.0.0.1:8000/scan-status");
+        setScanData(response.data);
+      } catch (err) {
+        setError(err.message);
+      }
+    };
+
+    fetchScanStatus();
+  }, []);
+
   return (
     <CSidebar
       className="border-end"
@@ -48,7 +66,13 @@ export function SideBar() {
           />{" "}
           Home
         </CNavItem>
-        <CNavItem href="#">
+        <CNavItem
+          onClick={(e) => {
+            e.preventDefault();
+            changeDisplay("-1");
+          }}
+          href="#"
+        >
           <WifiFindIcon
             style={{
               verticalAlign: "top",
@@ -72,14 +96,29 @@ export function SideBar() {
             </>
           }
         >
-          <CNavItem href="#">
-            <span className="nav-icon"></span> Scan 1{" "}
-            <CBadge color="primary ms-auto">COMPLETED</CBadge>
-          </CNavItem>
-          <CNavItem href="#">
-            <span className="nav-icon"></span> Scan 2{" "}
-            <CBadge color="primary ms-auto">ONGOING</CBadge>
-          </CNavItem>
+          {scanData ? (
+            <>
+              {scanData.map((scan) => (
+                <CNavItem
+                  onClick={(e) => {
+                    e.preventDefault();
+                    changeDisplay(scan._id);
+                  }}
+                  href="#"
+                >
+                  <span className="nav-icon"></span> {scan.IP}{" "}
+                  <CBadge color="primary ms-auto">
+                    {scan.Completed ? "COMPLETED" : "ONGONG"}
+                  </CBadge>
+                </CNavItem>
+              ))}
+            </>
+          ) : (
+            <CNavItem onClick={() => {}} href="#">
+              <span className="nav-icon"></span>
+              <Skeleton variant="text" sx={{ fontSize: "1rem" }} />{" "}
+            </CNavItem>
+          )}
         </CNavGroup>
         <Divider style={{ borderColor: "whitesmoke" }} />
         <CNavItem href="https://coreui.io" className="nav-item-bottom">
