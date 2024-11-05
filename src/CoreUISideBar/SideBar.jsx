@@ -27,6 +27,7 @@ export function SideBar({ changeDisplay }) {
       try {
         const response = await axios.get("http://127.0.0.1:8000/scan-status");
         setScanData(response.data);
+        console.log(response.data);
       } catch (err) {
         setError(err.message);
       }
@@ -106,7 +107,7 @@ export function SideBar({ changeDisplay }) {
                   }}
                   href="#"
                 >
-                  <span className="nav-icon"></span> {scan.IP}{" "}
+                  <span className="nav-icon"></span> {scan.domain}{" "}
                   <CBadge color="primary ms-auto">
                     {scan.Completed ? "COMPLETED" : "ONGONG"}
                   </CBadge>

@@ -88,7 +88,10 @@ export default function ScanResult(props) {
             <SystemOverview data={scanData.ScanData} />
           </CustomTabPanel>
           <CustomTabPanel value={value} index={1}>
-            <VulnOverview vulnerabilityData={scanData.ScanData} />
+            <VulnOverview
+              vulnerabilityData={scanData.ScanData}
+              domain={scanData.domain}
+            />
           </CustomTabPanel>
           <CustomTabPanel value={value} index={2}>
             <VulnerabilityTable vulnerabilities={scanData.ScanData.Ports} />

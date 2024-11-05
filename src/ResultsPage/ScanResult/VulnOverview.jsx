@@ -88,7 +88,7 @@ const BarChartComponent = ({ barData }) => {
   );
 };
 
-const VulnOverview = ({ vulnerabilityData }) => {
+const VulnOverview = ({ vulnerabilityData, domain }) => {
   const totalVulnerabilities = vulnerabilityData.Ports.reduce(
     (acc, port) => acc + port.Vulnerabilities.length,
     0
@@ -144,7 +144,7 @@ const VulnOverview = ({ vulnerabilityData }) => {
   return (
     <Box p={4}>
       <Heading sx={{ color: "#062c30" }} mb={10}>
-        Network Vulnerability Dashboard
+        Network Vulnerability Dashboard : ({domain})
       </Heading>
       <Grid templateColumns="repeat(3, 1fr)" gap={5}>
         <GridItem colSpan={2}>
