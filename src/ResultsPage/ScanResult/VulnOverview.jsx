@@ -95,14 +95,14 @@ const VulnOverview = ({ vulnerabilityData, domain }) => {
   );
   const criticalVulnerabilities = vulnerabilityData.Ports.reduce(
     (acc, port) =>
-      acc + port.Vulnerabilities.filter((vuln) => vuln.Severity >= 9).length,
+      acc + port.Vulnerabilities.filter((vuln) => vuln.Severity >= 7).length,
     0
   );
   const mediumVulnerabilities = vulnerabilityData.Ports.reduce(
     (acc, port) =>
       acc +
       port.Vulnerabilities.filter(
-        (vuln) => vuln.Severity >= 7 && vuln.Severity < 9
+        (vuln) => vuln.Severity >= 5 && vuln.Severity < 7
       ).length,
     0
   );

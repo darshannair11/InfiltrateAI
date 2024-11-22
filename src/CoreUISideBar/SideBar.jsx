@@ -18,6 +18,8 @@ import {
 } from "@coreui/react";
 import "./styles.css";
 
+import logo from "../assets/zebra_ipro_header.png";
+
 export function SideBar({ changeDisplay }) {
   const [scanData, setScanData] = React.useState(null);
   const [error, setError] = React.useState(null);
@@ -52,7 +54,11 @@ export function SideBar({ changeDisplay }) {
     >
       <CSidebarHeader className="border-bottom">
         <CSidebarBrand className="custom-navbar-brand">
-          Infiltrate AI
+          <img
+            src={logo}
+            alt="Infiltrate AI Logo"
+            style={{ width: "100%", height: "auto" }}
+          />
         </CSidebarBrand>
       </CSidebarHeader>
       <CSidebarNav style={{ flex: 1 }}>
@@ -122,10 +128,10 @@ export function SideBar({ changeDisplay }) {
           )}
         </CNavGroup>
         <Divider style={{ borderColor: "whitesmoke" }} />
-        <CNavItem href="https://coreui.io" className="nav-item-bottom">
+        <CNavItem href="#" className="nav-item-bottom">
           About Infiltrate AI
         </CNavItem>
-        <CNavItem href="https://coreui.io/pro/">Profile</CNavItem>
+        <CNavItem href="#">Profile</CNavItem>
       </CSidebarNav>
     </CSidebar>
   );
